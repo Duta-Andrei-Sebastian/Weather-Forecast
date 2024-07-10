@@ -78,3 +78,15 @@ precipitation -0.170536
 wind          -0.269172
 MSE : 11.297832171916616
 R2 : 0.7936850590036181
+
+Lastly, we will try to get the same results by changing the method. Instead of using a linear regression
+method, we will use svr.
+We will choose the same data as in the first linear regression training.
+
+![svr](/images/svr)
+
+It is obvious that this prediction is nearly identical to the one made with linear regression, but it's slightly
+worse. Mathematically this is obvious from the fact that this method's MSE is higher.
+
+Mean Squared Error: 9.868544960615035
+r2 score: 0.8282952125947156

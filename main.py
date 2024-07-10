@@ -6,7 +6,10 @@ import seaborn as sns
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error,r2_score
-
+from sklearn.svm import LinearSVR
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import make_regression
 
 def dataset_info_total(df: pd.DataFrame):
     """
@@ -169,9 +172,29 @@ def lr_predictor_default_split(df: pd.DataFrame):
     plt.show()
 
 
-def svr_predictor_default_split(dataframe: pd.DataFrame):
+def svr_predictor_default_split(df: pd.DataFrame):
     """ TODO:
     """
+    dependent_variable = df['temp_max']
+    features = df[['date', 'year', 'month', 'temp_min', 'precipitation', 'wind']]
+    X_train, X_test, Y_train, Y_test = train_test_split(features, dependent_variable, test_size=0.11, random_state=0,
+                                                        shuffle=False)
+    reg = make_pipeline(StandardScaler(), LinearSVR(tol=1e-5))
+
+    reg.fit(X_train.drop(['date'],axis=1), Y_train)
+
+    Y_predicted = reg.predict(X_test.drop(['date'],axis=1))
+    Y_test_plot = np.array(Y_test)
+    X_test_plot = np.array(X_test['date'])
+    prediction_plot = np.array(Y_predicted)
+    plt.plot(X_test_plot, Y_test_plot)
+    plt.scatter(X_test_plot, Y_test_plot)
+    plt.plot(X_test_plot, prediction_plot)
+    plt.scatter(X_test_plot, prediction_plot)
+    plt.show()
+    #print(reg.coef_)
+    print(f"Mean Squared Error: {mean_squared_error(Y_test, Y_predicted)}")
+    print(f"r2 score: {r2_score(Y_test, Y_predicted)}")
 
 
 def main():
@@ -181,7 +204,7 @@ def main():
     df['date'] = pd.to_datetime(df['date'])
     df.insert(1, "year", df['date'].dt.year, True)
     df.insert(2, "month", df['date'].dt.month, True)
-    lr_predictor_random_split(df)
+    svr_predictor_default_split(df)
 
 
 if __name__ == '__main__':
