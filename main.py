@@ -128,22 +128,22 @@ def lr_predictor_random_split(df: pd.DataFrame):
     dependent_variable = df['temp_max']
     features = df[['date', 'year', 'month', 'temp_min', 'precipitation', 'wind']]
 
-    X_train, X_test, Y_train, Y_test = train_test_split(features, dependent_variable, test_size=0.2, random_state=43,shuffle=False)
-    reg = LinearRegression().fit(X_train.drop(['date'], axis=1), Y_train)
-    prediction = reg.predict(X_test.drop(['date'], axis=1))
+    x_train, x_test, y_train, y_test = train_test_split(features, dependent_variable, test_size=0.2, random_state=43,shuffle=False)
+    reg = LinearRegression().fit(x_train.drop(['date'], axis=1), y_train)
+    prediction = reg.predict(x_test.drop(['date'], axis=1))
     print(pd.DataFrame(reg.coef_, features.drop(['date'], axis=1).columns, columns=['coef']))
-    MSE = mean_squared_error(Y_test, prediction)
+    MSE = mean_squared_error(y_test, prediction)
     print(MSE)
-    R_2 = r2_score(Y_test, prediction)
+    R_2 = r2_score(y_test, prediction)
     print(R_2)
-    Y_test_plot = np.array(Y_test)
-    X_test_plot = np.array(X_test['date'])
+    y_test_plot = np.array(y_test)
+    x_test_plot = np.array(x_test['date'])
     prediction_plot = np.array(prediction)
 
-    plt.plot(X_test_plot, Y_test_plot)
-    plt.scatter(X_test_plot, Y_test_plot)
-    plt.plot(X_test_plot, prediction_plot)
-    plt.scatter(X_test_plot, prediction_plot)
+    plt.plot(x_test_plot, y_test_plot)
+    plt.scatter(x_test_plot, y_test_plot)
+    plt.plot(x_test_plot, prediction_plot)
+    plt.scatter(x_test_plot, prediction_plot)
     plt.show()
 
 
@@ -154,21 +154,21 @@ def lr_predictor_default_split(df: pd.DataFrame):
     dependent_variable = df['temp_max']
     features = df[['date', 'year', 'month', 'temp_min', 'precipitation', 'wind']]
 
-    X_train, X_test, Y_train, Y_test = train_test_split(features, dependent_variable, test_size=0.11, random_state=0, shuffle=False)
-    reg = LinearRegression().fit(X_train.drop(['date'], axis=1), Y_train)
-    prediction = reg.predict(X_test.drop(['date'], axis=1))
+    x_train, x_test, y_train, y_test = train_test_split(features, dependent_variable, test_size=0.11, random_state=0, shuffle=False)
+    reg = LinearRegression().fit(x_train.drop(['date'], axis=1), y_train)
+    prediction = reg.predict(x_test.drop(['date'], axis=1))
     print(pd.DataFrame(reg.coef_, features.drop(['date'], axis=1).columns, columns=['coef']))
-    MSE = mean_squared_error(Y_test, prediction)
+    MSE = mean_squared_error(y_test, prediction)
     print(MSE)
-    R_2 = r2_score(Y_test, prediction)
+    R_2 = r2_score(y_test, prediction)
     print(R_2)
-    Y_test_plot = np.array(Y_test)
-    X_test_plot = np.array(X_test['date'])
+    y_test_plot = np.array(y_test)
+    x_test_plot = np.array(x_test['date'])
     prediction_plot = np.array(prediction)
-    plt.plot(X_test_plot, Y_test_plot)
-    plt.scatter(X_test_plot, Y_test_plot)
-    plt.plot(X_test_plot, prediction_plot)
-    plt.scatter(X_test_plot, prediction_plot)
+    plt.plot(x_test_plot, y_test_plot)
+    plt.scatter(x_test_plot, y_test_plot)
+    plt.plot(x_test_plot, prediction_plot)
+    plt.scatter(x_test_plot, prediction_plot)
     plt.show()
 
 
@@ -177,24 +177,24 @@ def svr_predictor_default_split(df: pd.DataFrame):
     """
     dependent_variable = df['temp_max']
     features = df[['date', 'year', 'month', 'temp_min', 'precipitation', 'wind']]
-    X_train, X_test, Y_train, Y_test = train_test_split(features, dependent_variable, test_size=0.11, random_state=0,
+    x_train, x_test, y_train, y_test = train_test_split(features, dependent_variable, test_size=0.11, random_state=0,
                                                         shuffle=False)
     reg = make_pipeline(StandardScaler(), LinearSVR(tol=1e-5))
 
-    reg.fit(X_train.drop(['date'],axis=1), Y_train)
+    reg.fit(x_train.drop(['date'],axis=1), y_train)
 
-    Y_predicted = reg.predict(X_test.drop(['date'],axis=1))
-    Y_test_plot = np.array(Y_test)
-    X_test_plot = np.array(X_test['date'])
+    Y_predicted = reg.predict(x_test.drop(['date'],axis=1))
+    y_test_plot = np.array(y_test)
+    x_test_plot = np.array(x_test['date'])
     prediction_plot = np.array(Y_predicted)
-    plt.plot(X_test_plot, Y_test_plot)
-    plt.scatter(X_test_plot, Y_test_plot)
-    plt.plot(X_test_plot, prediction_plot)
-    plt.scatter(X_test_plot, prediction_plot)
+    plt.plot(x_test_plot, y_test_plot)
+    plt.scatter(x_test_plot, y_test_plot)
+    plt.plot(x_test_plot, prediction_plot)
+    plt.scatter(x_test_plot, prediction_plot)
     plt.show()
     #print(reg.coef_)
-    print(f"Mean Squared Error: {mean_squared_error(Y_test, Y_predicted)}")
-    print(f"r2 score: {r2_score(Y_test, Y_predicted)}")
+    print(f"Mean Squared Error: {mean_squared_error(y_test, Y_predicted)}")
+    print(f"r2 score: {r2_score(y_test, Y_predicted)}")
 
 
 def main():
