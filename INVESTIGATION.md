@@ -43,3 +43,38 @@ data about, we will use both a piechart and a countplot to help us visualise the
 ![weather_piechart](/images/weather_piechart.png)
 ![weather_countplot](/images/weather_countplot.png)
 
+## Predictions
+To predict how to weather is going to be we are going to train a machine learning algorithm with a linear
+regression model.
+First, we use the first 1300 entries in the raw data provided to train the algorith. Then test it using the
+remaining inputs.
+
+![linear_regression_first_1300_no_scatter](/images/linear_regression_first_1300_no_scatter.png)
+
+In the above graph, the blue line represents the data provided, while the orange line represents the 
+prediction made by the algorithm.
+The algorithm presents the following parameters:
+                   coef
+year           0.133504
+month         -0.043918
+temp_min       1.259584
+precipitation -0.173899
+wind          -0.272315
+MSE : 9.570734696689344
+R2 : 0.8334768729365949
+
+Secondly, we will try choosing 80% of the given data ata random for training.
+
+![linear_regression_default](/images/linear_regression_default)
+
+As in the example above, the blue line represents the data provided, while the orange one represents
+the prediction made.
+The algorithm presents the following parameters:
+                   coef
+year          -0.112052
+month         -0.046500
+temp_min       1.243752
+precipitation -0.170536
+wind          -0.269172
+MSE : 11.297832171916616
+R2 : 0.7936850590036181

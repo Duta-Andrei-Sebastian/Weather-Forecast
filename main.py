@@ -3,9 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn
 import seaborn as sns
-
-def dataset_info(df: pd.DataFrame):
-    print(df.info)
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error,r2_score
 
 
 def dataset_info_total(df: pd.DataFrame):
@@ -23,6 +23,7 @@ def dataset_info_total(df: pd.DataFrame):
     print(df['weather'].mode())
     print(df['weather'].value_counts())
 
+
 def dataset_info_by_year(df: pd.DataFrame, year):
     """
     Information regarding the weather
@@ -37,6 +38,7 @@ def dataset_info_by_year(df: pd.DataFrame, year):
     print(np.mean(df[df['year'] == year]['precipitation']))
     print(df[df['year'] == year]['weather'].mode())
     print(df[df['year'] == year]['weather'].value_counts())
+
 
 def temp_max_histplot(df: pd.DataFrame):
     """
@@ -117,14 +119,54 @@ def weather_piechart(df: pd.DataFrame):
     plt.pie(df['weather'].value_counts(), labels=keys, colors=palette_color, autopct='%1.1f%%')
     plt.show()
 
-def lr_predictor_random_split(dataframe: pd.DataFrame):
+def lr_predictor_random_split(df: pd.DataFrame):
     """ TODO:
     """
+    dependent_variable = df['temp_max']
+    features = df[['date', 'year', 'month', 'temp_min', 'precipitation', 'wind']]
+
+    X_train, X_test, Y_train, Y_test = train_test_split(features, dependent_variable, test_size=0.2, random_state=43,shuffle=False)
+    reg = LinearRegression().fit(X_train.drop(['date'], axis=1), Y_train)
+    prediction = reg.predict(X_test.drop(['date'], axis=1))
+    print(pd.DataFrame(reg.coef_, features.drop(['date'], axis=1).columns, columns=['coef']))
+    MSE = mean_squared_error(Y_test, prediction)
+    print(MSE)
+    R_2 = r2_score(Y_test, prediction)
+    print(R_2)
+    Y_test_plot = np.array(Y_test)
+    X_test_plot = np.array(X_test['date'])
+    prediction_plot = np.array(prediction)
+
+    plt.plot(X_test_plot, Y_test_plot)
+    plt.scatter(X_test_plot, Y_test_plot)
+    plt.plot(X_test_plot, prediction_plot)
+    plt.scatter(X_test_plot, prediction_plot)
+    plt.show()
 
 
-def lr_predictor_default_split(dataframe: pd.DataFrame):
+
+def lr_predictor_default_split(df: pd.DataFrame):
     """ TODO:
     """
+    dependent_variable = df['temp_max']
+    features = df[['date', 'year', 'month', 'temp_min', 'precipitation', 'wind']]
+
+    X_train, X_test, Y_train, Y_test = train_test_split(features, dependent_variable, test_size=0.11, random_state=0, shuffle=False)
+    reg = LinearRegression().fit(X_train.drop(['date'], axis=1), Y_train)
+    prediction = reg.predict(X_test.drop(['date'], axis=1))
+    print(pd.DataFrame(reg.coef_, features.drop(['date'], axis=1).columns, columns=['coef']))
+    MSE = mean_squared_error(Y_test, prediction)
+    print(MSE)
+    R_2 = r2_score(Y_test, prediction)
+    print(R_2)
+    Y_test_plot = np.array(Y_test)
+    X_test_plot = np.array(X_test['date'])
+    prediction_plot = np.array(prediction)
+    plt.plot(X_test_plot, Y_test_plot)
+    plt.scatter(X_test_plot, Y_test_plot)
+    plt.plot(X_test_plot, prediction_plot)
+    plt.scatter(X_test_plot, prediction_plot)
+    plt.show()
 
 
 def svr_predictor_default_split(dataframe: pd.DataFrame):
@@ -139,15 +181,7 @@ def main():
     df['date'] = pd.to_datetime(df['date'])
     df.insert(1, "year", df['date'].dt.year, True)
     df.insert(2, "month", df['date'].dt.month, True)
-    dataset_info(df)
-    dataset_info_total(df)
-    dataset_info_by_year(df, 2013)
-    temp_max_histplot(df)
-    temp_max_facegrid_lineplot(df)
-    temp_min_facegrid_lineplot(df)
-    precipitation_facegrid_scatterplot(df)
-    weather_countplot(df)
-    weather_piechart(df)
+    lr_predictor_random_split(df)
 
 
 if __name__ == '__main__':
