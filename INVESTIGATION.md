@@ -13,18 +13,33 @@ two more columns containing the year and the month.
 To begin to grasp the way the weather behaves in Seattle we will use the plt.hist()
 function to make a histogram of the max and min temperatures for each year:
 
-![max_temperature_histogram_2012](/images/max_temperature_histogram_2012.png)
-![min_temperature_histogram_2012](/images/min_temperature_histogram_2012.png)
-![max_temperature_histogram_2013](/images/max_temperature_histogram_2013.png)
-![min_temperature_histogram_2013](/images/min_temperature_histogram_2013.png)
-![max_temperature_histogram_2014](/images/max_temperature_histogram_2014.png)
-![min_temperature_histogram_2014](/images/min_temperature_histogram_2014.png)
-![max_temperature_histogram_2015](/images/max_temperature_histogram_2015.png)
-![min_temperature_histogram_2015](/images/min_temperature_histogram_2015.png)
+### 2012
+![temp_max_histogram_2012](/images/temp_max_histogram_2012.png)
+![temp_min_histogram_2012](/images/temp_min_histogram_2012.png)
+### 2013
+![temp_max_histogram_2013](/images/temp_max_histogram_2013.png)
+![temp_min_histogram_2013](/images/temp_min_histogram_2013.png)
+### 2014
+![temp_max_histogram_2014](/images/temp_max_histogram_2014.png)
+![temp_min_histogram_2014](/images/temp_min_histogram_2014.png)
+### 2015
+![temp_max_histogram_2015](/images/temp_max_histogram_2015.png)
+![temp_min_histogram_2015](/images/temp_min_histogram_2015.png)
 
 Seeing these histograms can help us understand the general way the weather behaves,
 but it isn't enough. To gain a good understanding we will use a linegraph created 
-using the seaborn module    
+using the seaborn module.
 
+![temp_max_lineplot](/images/temp_max_lineplot.png)
+![temp_min_lineplot](/images/temp_min_lineplot.png)
 
+To better understand precipitations, we plot them by year with a scatterplot:
+
+![precipitation_scatterplot](/images/precipitation_scatterplot.png)
+
+Because we need to see how the overall weather evolves each day for the 4 years we have
+data about, we will use both a piechart and a countplot to help us visualise the data better.
+
+![weather_piechart](/images/weather_piechart.png)
+![weather_countplot](/images/weather_countplot.png)
 
