@@ -54,14 +54,19 @@ remaining inputs.
 In the above graph, the blue line represents the data provided, while the orange line represents the 
 prediction made by the algorithm.
 The algorithm presents the following parameters:
-                   coef
-year           0.133504
-month         -0.043918
-temp_min       1.259584
-precipitation -0.173899
-wind          -0.272315
-MSE : 9.570734696689344
-R2 : 0.8334768729365949
+
+|               | coef      |
+|---------------|-----------|
+| year          | 0.133504  |
+| month         | -0.043918 |
+| temp_min      | 1.259584  |
+| precipitation | -0.173899 |
+| wind          | -0.272315 |
+
+| method | error              |
+|--------|--------------------|
+| MSE    | 9.570734696689344  |
+| R2     | 0.8334768729365949 |
 
 Secondly, we will try choosing 80% of the given data ata random for training.
 
@@ -70,14 +75,20 @@ Secondly, we will try choosing 80% of the given data ata random for training.
 As in the example above, the blue line represents the data provided, while the orange one represents
 the prediction made.
 The algorithm presents the following parameters:
-                   coef
-year          -0.112052
-month         -0.046500
-temp_min       1.243752
-precipitation -0.170536
-wind          -0.269172
-MSE : 11.297832171916616
-R2 : 0.7936850590036181
+
+|               | coef      |
+|---------------|-----------|
+| year          | -0.112052 |
+| month         | -0.046500 |
+| temp_min      | 1.243752  |
+| precipitation | -0.170536 |
+| wind          | -0.269172 |
+
+
+| method | error              |
+|--------|--------------------|
+| MSE    | 11.297832171916616 |
+| R2     | 0.7936850590036181 |
 
 Lastly, we will try to get the same results by changing the method. Instead of using a linear regression
 method, we will use svr.
@@ -88,5 +99,7 @@ We will choose the same data as in the first linear regression training.
 It is obvious that this prediction is nearly identical to the one made with linear regression, but it's slightly
 worse. Mathematically this is obvious from the fact that this method's MSE is higher.
 
-Mean Squared Error: 9.868544960615035
-r2 score: 0.8282952125947156
+| method | error              |
+|--------|--------------------|
+| MSE    | 9.868544960615035  |
+| R2     | 0.8282952125947156 |
