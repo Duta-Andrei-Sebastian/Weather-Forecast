@@ -77,6 +77,10 @@ def temp_max_facegrid_lineplot(df: pd.DataFrame):
     """
     grid = sns.FacetGrid(df, col='year')
     grid.map(sns.lineplot, 'month', 'temp_max')
+    for ax in grid.axes.flat:
+        ax.set_xticks([1,4,7,10,12])
+        ax.set_xlim(1,12)
+
     plt.show()
 
 
@@ -87,6 +91,9 @@ def temp_min_facegrid_lineplot(df: pd.DataFrame):
     """
     grid = sns.FacetGrid(df, col='year')
     grid.map(sns.lineplot, 'month', 'temp_min')
+    for ax in grid.axes.flat:
+        ax.set_xticks([1,4,7,10,12])
+        ax.set_xlim(1,12)
     plt.show()
 
 
@@ -97,6 +104,9 @@ def precipitation_facegrid_scatterplot(dataframe: pd.DataFrame):
     """
     grid = sns.FacetGrid(dataframe, col='year')
     grid.map(sns.scatterplot, 'month', 'precipitation')
+    for ax in grid.axes.flat:
+        ax.set_xticks([1,4,7,10,12])
+        ax.set_xlim(0,13)
     plt.show()
 
 
@@ -123,7 +133,9 @@ def weather_piechart(df: pd.DataFrame):
     plt.show()
 
 def lr_predictor_random_split(df: pd.DataFrame):
-    """ TODO:
+    """ Linear Regression Predictor
+    This function makes a random split of data and trains a linear regression model
+    The split is .8 train - .2 test
     """
     dependent_variable = df['temp_max']
     features = df[['date', 'year', 'month', 'temp_min', 'precipitation', 'wind']]
@@ -149,7 +161,8 @@ def lr_predictor_random_split(df: pd.DataFrame):
 
 
 def lr_predictor_default_split(df: pd.DataFrame):
-    """ TODO:
+    """Linear Regression Predictor
+    This function trains the model using the first 1300 entries in the dataframe and tests it on the rest
     """
     dependent_variable = df['temp_max']
     features = df[['date', 'year', 'month', 'temp_min', 'precipitation', 'wind']]
@@ -173,7 +186,9 @@ def lr_predictor_default_split(df: pd.DataFrame):
 
 
 def svr_predictor_default_split(df: pd.DataFrame):
-    """ TODO:
+    """ SVR prediction model
+    This function makes a random split of data and trains a linear regression model
+    The split is .8 train - .2 test
     """
     dependent_variable = df['temp_max']
     features = df[['date', 'year', 'month', 'temp_min', 'precipitation', 'wind']]
@@ -192,7 +207,6 @@ def svr_predictor_default_split(df: pd.DataFrame):
     plt.plot(x_test_plot, prediction_plot)
     plt.scatter(x_test_plot, prediction_plot)
     plt.show()
-    #print(reg.coef_)
     print(f"Mean Squared Error: {mean_squared_error(y_test, Y_predicted)}")
     print(f"r2 score: {r2_score(y_test, Y_predicted)}")
 
@@ -204,7 +218,8 @@ def main():
     df['date'] = pd.to_datetime(df['date'])
     df.insert(1, "year", df['date'].dt.year, True)
     df.insert(2, "month", df['date'].dt.month, True)
-    svr_predictor_default_split(df)
+    #svr_predictor_default_split(df)
+    precipitation_facegrid_scatterplot(df)
 
 
 if __name__ == '__main__':
