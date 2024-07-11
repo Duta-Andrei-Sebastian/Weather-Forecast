@@ -65,7 +65,7 @@ R2 : 0.8334768729365949
 
 Secondly, we will try choosing 80% of the given data ata random for training.
 
-![linear_regression_default](/images/linear_regression_default)
+![linear_regression_default](/images/linear_regression_default.png)
 
 As in the example above, the blue line represents the data provided, while the orange one represents
 the prediction made.
@@ -83,7 +83,7 @@ Lastly, we will try to get the same results by changing the method. Instead of u
 method, we will use svr.
 We will choose the same data as in the first linear regression training.
 
-![svr](/images/svr)
+![svr](/images/svr.png)
 
 It is obvious that this prediction is nearly identical to the one made with linear regression, but it's slightly
 worse. Mathematically this is obvious from the fact that this method's MSE is higher.

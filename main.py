@@ -151,7 +151,8 @@ def lr_predictor_random_split(df: pd.DataFrame):
     y_test_plot = np.array(y_test)
     x_test_plot = np.array(x_test['date'])
     prediction_plot = np.array(prediction)
-
+    figure = plt.figure()
+    figure.set_figwidth(9)
     plt.plot(x_test_plot, y_test_plot)
     plt.scatter(x_test_plot, y_test_plot)
     plt.plot(x_test_plot, prediction_plot)
@@ -219,8 +220,7 @@ def main():
     df.insert(1, "year", df['date'].dt.year, True)
     df.insert(2, "month", df['date'].dt.month, True)
     #svr_predictor_default_split(df)
-    precipitation_facegrid_scatterplot(df)
-
+    lr_predictor_random_split(df)
 
 if __name__ == '__main__':
     main()
